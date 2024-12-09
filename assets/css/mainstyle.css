@@ -1,0 +1,37 @@
+* {
+  font-family: "Alkatra", system-ui;
+}
+
+/* Start Home page  */
+
+.carousel .carousel-item img {
+  height: 670px;
+  object-fit: cover;
+}
+
+/* End Home page  */
+
+/* Start booking page  */
+.jumbotron {
+  background-image: url("../images/booking=banner.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  color: white;
+}
+
+.carousel-item img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.card img {
+  height: 250px;
+  object-fit: cover;
+}
+
+.room-section {
+  margin-top: 30px;
+}
+
+/* End booking page  */
