@@ -97,23 +97,77 @@ include '../includes/header.php';
 
 
 <!-- popular rooms  -->
-<div class="container-fluid text-center">
-  <h2 class="text-info py-5">Popular Rooms</h2>
+
+<?php
+$selectPopular = "SELECT * FROM rooms LIMIT 5";
+$popularResult = mysqli_query($conn, $selectPopular);
+?>
+<div class="container room-section">
+  <h2 class="text-center mb-4" id="rooms">Popular Rooms</h2>
   <div class="row">
-    <div class="col-sm-4">
-      <div class="card">
-        <img src="../assets/images/./Luxury Hotel Room HD Wallpaper.jpg" class="card-img-top" alt="Room 1">
-        <div class="card-body">
-          <h5 class="card-title">Room 1</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <?php while ($room = $popularResult->fetch_assoc()) { ?>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="<?= $room['img']; ?>" class="card-img-top" alt="<?= $room['description']; ?>">
+          <div class="card-body">
+            <p class="card-text"><?= $room['description']; ?></p>
+            <p><strong>Price:</strong> $<?= $room['price']; ?> per night</p>
+            <p><strong>Availability:</strong>
+              <?php if ($room['available']) {
+                echo '<span class="badge bg-success">Available</span>';
+              } else {
+                echo '<span class="badge bg-danger">Not Available</span>';
+              }; ?>
+            </p>
+            <?php if ($room['available']) {
+              if (isset($_SESSION["user_id"])){
+                echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                      Book Now
+                    </button>';
+              } else {
+                  echo '<a href="./login.php" class="btn btn-secondary" disabled>Login to Book</a>';
+                };
+            } else {
+              echo '<a href="#" class="btn btn-secondary" disabled>Currently Unavailable</a>';
+            }; ?>
+
+          </div>
+          <!-- model-->
+          <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="bookingModalLabel">Book a Room</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="bookingForm">
+                    <input type="text" name="room_id" value="<?= $room['room_id']; ?>" hidden>
+                    <div class="mb-3">
+                      <label for="checkInDate" class="form-label">Check-In Date</label>
+                      <input type="date" id="checkInDate" name="check_in_date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="checkOutDate" class="form-label">Check-Out Date</label>
+                      <input type="date" id="checkOutDate" name="check_out_date" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Confirm Booking</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end model-->
         </div>
       </div>
-    </div>
+    <?php } ?>
+
   </div>
-  <button type="button" class="btn btn-info px-4 my-5">More</button>
 </div>
 
-
+<script>
+  console.log(document.cookie)
+</script>
 <?php
 include '../includes/footer.php';
 ?>

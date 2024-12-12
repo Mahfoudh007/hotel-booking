@@ -124,7 +124,7 @@ $bookingsResult = $conn->query($bookingsQuery);
                         <td><?= $booking['status'] ?></td>
                         <td>
                             <?php if ($booking['status'] != 'cancelled') { ?>
-                                <a href="cancel_booking.php?id=<?= $booking['booking_id'] ?>" class="btn btn-danger">Cancel</a>
+                                <a href="cancel_booking_admin.php?id=<?= $booking['booking_id'] ?>" class="btn btn-danger">Cancel</a>
                             <?php } ?>
                         </td>
                     </tr>

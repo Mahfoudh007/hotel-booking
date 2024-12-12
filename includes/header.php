@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once 'functions.php'; // تضمين ملف الفنكشنات
+include_once '../config/config.php';
+include_once 'functions.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -39,23 +40,23 @@ include_once 'functions.php'; // تضمين ملف الفنكشنات
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="../public/home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <a class="nav-link" href="../public/booking.php">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/booked_rooms.php">My Rooms</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
                 <!-- Login, Sign Up, and Logout Buttons -->
                 <div class="d-flex ms-lg-3">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <!-- User is logged in -->
-                        <a href="javascript:void(0);" onclick="logoutUser()" class="btn btn-outline-light me-2">Logout</a>
+                        <a href="../includes/logout.php" class="btn btn-outline-light me-2">Logout</a>
                         <?php if ($_SESSION['role'] === 'admin'): ?>
                             <!-- User is admin -->
                             <a href="../admin/admin_panel.php" class="btn btn-success">Admin Panel</a>
