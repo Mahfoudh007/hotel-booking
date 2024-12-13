@@ -1,6 +1,7 @@
-* {
-  font-family: "Alkatra", system-ui;
+body {
+  font-family: "Alkatra", system-ui !important;
 }
+
 
 /* Start Home page  */
 

@@ -9,18 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check_in_date = $_POST['check_in_date'];
     $check_out_date = $_POST['check_out_date'];
 
-    // // Check room availability
-    // $stmt = $conn->prepare("SELECT available FROM rooms WHERE room_id = ?");
-    // $stmt->bind_param("i", $room_id);
-    // $stmt->execute();
-    // $stmt->bind_result($available);
-    // $stmt->fetch();
-    // $stmt->close();
+    // Check room availability
+    $stmt = $conn->prepare("SELECT available FROM rooms WHERE room_id = ?");
+    $stmt->bind_param("i", $room_id);
+    $stmt->execute();
+    $stmt->bind_result($available);
+    $stmt->fetch();
+    $stmt->close();
 
-    // if (!$available) {
-    //     echo json_encode(["success" => false, "message" => "Room is not available!"]);
-    //     exit();
-    // }
+    if (!$available) {
+        echo json_encode(["success" => false, "message" => "Room is not available!"]);
+        exit();
+    }
 
     // Execute booking process
     $stmt = $conn->prepare("INSERT INTO booking (user_id, room_id, check_in_date, check_out_date) VALUES (?, ?, ?, ?)");
@@ -31,10 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("i", $room_id);
         $stmt->execute();
 
+
         echo json_encode(["success" => true, "message" => "Room booked successfully!"]);
     } else {
         echo json_encode(["success" => false, "message" => "Failed to book the room."]);
     }
     $stmt->close();
+    header("Location: ../public/booking.php");
+    exit();
 }
+
 ?>

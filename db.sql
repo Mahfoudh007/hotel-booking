@@ -1,6 +1,6 @@
-CREATE DATABASE hotelbookingrooms;
+-- CREATE DATABASE hotelbookingrooms;
 
-USE hotelbookingrooms;
+-- USE hotelbookingrooms;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -25,7 +25,7 @@ CREATE TABLE booking (
     check_out_date DATE NOT NULL,
     user_id INT,
     room_id INT,
-    status ENUM('confirmed', 'cancelled', 'pending') DEFAULT 'pending', -- Booking status
+    status ENUM('confirmed', 'cancelled') DEFAULT 'confirmed',
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
 );

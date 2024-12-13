@@ -23,7 +23,8 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
           const modal = bootstrap.Modal.getInstance(
             document.getElementById("bookingModal")
           );
-          modal.hide();
+            modal.hide();
+            location.reload();
         }
       })
       .catch((error) => {

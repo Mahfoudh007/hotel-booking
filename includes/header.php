@@ -1,7 +1,9 @@
 <?php
 session_start();
 include_once '../config/config.php';
-include_once 'functions.php'; 
+include_once 'functions.php';
+
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +20,12 @@ include_once 'functions.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/mainstyle.css" />
@@ -40,23 +45,25 @@ include_once 'functions.php';
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../public/home.php">Home</a>
+                        <a class="nav-link <?= $current_page == 'home.php' ? 'active' : ''?>" href="../public/home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../public/booking.php">Rooms</a>
+                        <a class="nav-link <?= $current_page == 'booking.php' ? 'active' : ''?>" href="../public/booking.php">Rooms</a>
                     </li>
+                    <?php if(isset($_SESSION['user_id'])) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $current_page == 'booked_rooms.php' ? 'active' : ''?>" href="../public/booked_rooms.php">My Rooms</a>
+                        </li>
+                    <?php }; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../public/booked_rooms.php">My Rooms</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link <?= $current_page == 'about.php' ? 'active' : ''?>" href="../public/about.php">About</a>
                     </li>
                 </ul>
                 <!-- Login, Sign Up, and Logout Buttons -->
                 <div class="d-flex ms-lg-3">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <!-- User is logged in -->
-                        <a href="../includes/logout.php" class="btn btn-outline-light me-2">Logout</a>
+                        <a href="../actions/logout.php" class="btn btn-outline-light me-2">Logout</a>
                         <?php if ($_SESSION['role'] === 'admin'): ?>
                             <!-- User is admin -->
                             <a href="../admin/admin_panel.php" class="btn btn-success">Admin Panel</a>
@@ -64,7 +71,6 @@ include_once 'functions.php';
                     <?php else: ?>
                         <!-- User is not logged in -->
                         <a href="login.php" class="btn btn-outline-light me-2">Login</a>
-                        <a href="signup.php" class="btn btn-primary">Sign Up</a>
                     <?php endif; ?>
                 </div>
             </div>
