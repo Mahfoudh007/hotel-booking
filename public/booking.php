@@ -58,7 +58,7 @@ $popularResult = mysqli_query($conn, $selectPopular);
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="bookingForm" method="POST" action="../actions/book-room.php">
+                  <form method="POST" action="../actions/book-room.php">
                     <input type="hidden" name="room_id" value="<?= $room['room_id']; ?>">
                     <div class="mb-3">
                       <label for="checkInDate" class="form-label">Check-In Date</label>
@@ -68,7 +68,7 @@ $popularResult = mysqli_query($conn, $selectPopular);
                       <label for="checkOutDate" class="form-label">Check-Out Date</label>
                       <input type="date" id="checkOutDate" name="check_out_date" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-success">Confirm Booking</button>
+                    <button type="submit" id="submitBookingButton" class="btn btn-success">Confirm Booking</button>
                   </form>
                 </div>
               </div>

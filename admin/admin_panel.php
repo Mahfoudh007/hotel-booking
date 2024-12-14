@@ -13,7 +13,7 @@ $roomsQuery = "SELECT * FROM rooms";
 $roomsResult = $conn->query($roomsQuery);
 
 // Display bookings
-$bookingsQuery = "SELECT b.booking_id, r.description, u.username, b.check_in_date, b.check_out_date, b.status 
+$bookingsQuery = "SELECT b.booking_id, r.room_id, u.username, b.check_in_date, b.check_out_date, b.status 
                   FROM booking b 
                   JOIN rooms r ON b.room_id = r.room_id
                   JOIN users u ON b.user_id = u.user_id";
@@ -143,7 +143,7 @@ $bookingsResult = $conn->query($bookingsQuery);
                             <tr>
                                 <td><?= $booking['booking_id'] ?></td>
                                 <td><?= $booking['username'] ?></td>
-                                <td><?= $booking['description'] ?></td>
+                                <td><?= $booking['room_id'] ?></td>
                                 <td><?= $booking['check_in_date'] ?></td>
                                 <td><?= $booking['check_out_date'] ?></td>
                                 <td><?= $booking['status'] ?></td>

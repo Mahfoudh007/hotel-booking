@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /actions/
+Disallow: /admin/
+Disallow: /config/
+Disallow: /assets/
+Allow: /public/
+Allow: /index.html
+
+Sitemap: https://hotel-booking.lovestoblog.com/sitemap.xml

@@ -42,18 +42,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+
+    <!-- the message  -->
+    <?php if ($message != ""): ?>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <?php echo $message; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['message']); // Clear the message after displaying it 
+        ?>
+    <?php endif; ?>
+
     <section class="vh-100 bg-light">
         <div class="container-fluid">
             <div class="row align-items-center justify-content-center">
                 <!-- Left Section: Form -->
                 <div class="col-sm-6 text-black">
-                    <div class="px-5 ms-xl-4">
-                        <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085"></i>
-                        <span class="h1 fw-bold mb-0">HotelBooking</span>
-                    </div>
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" style="width: 35rem">
+                            <!-- Return to Home Button -->
+                            <div class="m-5">
+                                <a href="./home.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+                            </div>
                             <h3 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; color: #2d3e50;">
                                 Log in
                             </h3>
@@ -83,10 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </p>
                         </form>
                     </div>
+
                 </div>
 
                 <!-- Right Section: Image -->
-                <div class="col-sm-6 px-0 d-none d-sm-block">
+                <div class="col-sm-6 px-0 d-none d-lg-block">
                     <img src="../assets/images/banner-login.jpg" alt="Login image" class="w-100 vh-100"
                         style="object-fit: cover; object-position: center;" />
                 </div>
@@ -103,18 +116,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Modal body -->
                         <div class="modal-body">
-                            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" style="width: 35rem">
-                                <div class="form-outline mb-4">
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                                <div class="form-group mb-4">
                                     <input type="text" id="register-username" class="form-control form-control-lg" name="username" required />
                                     <label class="form-label" for="register-username">Username</label>
                                 </div>
 
-                                <div class="form-outline mb-4">
+                                <div class="form-group mb-4">
                                     <input type="password" id="register-password" class="form-control form-control-lg" name="pwd" required />
                                     <label class="form-label" for="register-password">Password</label>
                                 </div>
 
-                                <div class="form-outline mb-4">
+                                <div class="form-group mb-4">
                                     <input type="password" id="confirm-password" class="form-control form-control-lg" name="confirm_password" required />
                                     <label class="form-label" for="confirm-password">Confirm Password</label>
                                 </div>
@@ -135,5 +148,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Bootstrap JS  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 
 </html>

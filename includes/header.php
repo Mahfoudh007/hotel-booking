@@ -12,12 +12,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>hotelBooking</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,7 +36,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <body>
     <!-- Navbar Section -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand fw-bold" href="#">HotelBooking</a>
@@ -63,10 +66,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="d-flex ms-lg-3">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <!-- User is logged in -->
-                        <a href="../actions/logout.php" class="btn btn-outline-light me-2">Logout</a>
+                        <a href="../actions/logout.php" class="text-light"><i class="fa-solid fa-right-from-bracket" style="font-size: 20px; line-height: 2;"></i></a>
                         <?php if ($_SESSION['role'] === 'admin'): ?>
                             <!-- User is admin -->
-                            <a href="../admin/admin_panel.php" class="btn btn-success">Admin Panel</a>
+                            <a href="../admin/admin_panel.php" class="btn btn-success mx-4">Admin Panel</a>
                         <?php endif; ?>
                     <?php else: ?>
                         <!-- User is not logged in -->

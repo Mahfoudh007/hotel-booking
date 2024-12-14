@@ -1,7 +1,9 @@
 <?php
-include '../config/config.php'; 
+include '../config/config.php';
 session_start();
 
+// Set the content type to JSON
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $room_id = $_POST['room_id'];
@@ -18,27 +20,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     if (!$available) {
-        echo json_encode(["success" => false, "message" => "Room is not available!"]);
+        echo '<div
+            class="alert alert-primary"
+            role="alert"
+        >
+        Room is not available!
+        </div>
+        ';
         exit();
     }
 
     // Execute booking process
     $stmt = $conn->prepare("INSERT INTO booking (user_id, room_id, check_in_date, check_out_date) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("iiss", $user_id, $room_id, $check_in_date, $check_out_date);
+
     if ($stmt->execute()) {
         // Update room status
         $stmt = $conn->prepare("UPDATE rooms SET available = 0 WHERE room_id = ?");
         $stmt->bind_param("i", $room_id);
         $stmt->execute();
 
-
-        echo json_encode(["success" => true, "message" => "Room booked successfully!"]);
+        header("Location: ../public/booked_rooms.php");
     } else {
-        echo json_encode(["success" => false, "message" => "Failed to book the room."]);
+        echo '<div
+            class="alert alert-danger"
+            role="alert"
+        >
+        Failed to book the room. Please try again later.
+        </div>
+        ';
+        exit();
     }
     $stmt->close();
-    header("Location: ../public/booking.php");
-    exit();
+    exit(); // Ensure no further output is sent
 }
-
-?>

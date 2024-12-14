@@ -2,30 +2,40 @@
 session_start();
 require_once '../config/config.php';
 
-// تأكد من أن المستخدم هو المسؤول
+// Ensure the user is an admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
-// تأكد من وجود معرف الحجز
+// Check if booking ID is provided
 if (isset($_GET['id'])) {
     $booking_id = $_GET['id'];
 
+    // Prepare statement to cancel booking
     $stmt = $conn->prepare("UPDATE booking SET status = 'cancelled' WHERE booking_id = ?");
     $stmt->bind_param("i", $booking_id);
     $stmt->execute();
 
-
-    if ($stmt->execute()) {
-        // Update room status
-        $stmt = $conn->prepare("UPDATE rooms SET available = 1 WHERE room_id = ?");
-        $stmt->bind_param("i", $room_id);
+    if ($stmt->affected_rows > 0) {
+        // Retrieve room_id associated with the booking
+        $stmt = $conn->prepare("SELECT room_id FROM booking WHERE booking_id = ?");
+        $stmt->bind_param("i", $booking_id);
         $stmt->execute();
+        $stmt->bind_result($room_id);
+        $stmt->fetch();
+        $stmt->close();
 
-        $message = "Booking cancelled successfully!";
+        // Update room status
+        if (isset($room_id)) {
+            $stmt = $conn->prepare("UPDATE rooms SET available = 1 WHERE room_id = ?");
+            $stmt->bind_param("i", $room_id);
+            $stmt->execute();
+        }
+
+        $_SESSION['message'] = "Booking cancelled successfully!";
     } else {
-        $message = "Failed to cancel booking.";
+        $_SESSION['message'] = "Failed to cancel booking.";
     }
     $stmt->close();
 }

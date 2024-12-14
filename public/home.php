@@ -105,7 +105,7 @@ include '../includes/header.php';
       <div class="col-md-6">
         <h2 class="fw-bold mb-3">Learn More About Us</h2>
         <p class="mb-4">We are dedicated to providing an unforgettable experience with our world-class facilities and exceptional service. Discover more about our story and what makes us different.</p>
-        <a href="./about.php" class="btn btn-primary btn-lg">About Us</a>
+        <a href="./about.php" class="btn btn-primary btn-lg mb-4">About Us</a>
       </div>
       <div class="col-md-6">
         <div class="image-container">
@@ -210,7 +210,7 @@ $popularResult = mysqli_query($conn, $selectPopular);
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="bookingForm" method="POST" action="../actions/book-room.php">
+                  <form method="POST" action="../actions/book-room.php">
                     <input type="hidden" name="room_id" value="<?= $room['room_id']; ?>">
                     <div class="mb-3">
                       <label for="checkInDate" class="form-label">Check-In Date</label>
@@ -220,7 +220,7 @@ $popularResult = mysqli_query($conn, $selectPopular);
                       <label for="checkOutDate" class="form-label">Check-Out Date</label>
                       <input type="date" id="checkOutDate" name="check_out_date" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-success">Confirm Booking</button>
+                    <button type="submit" id="submitBookingButton" class="btn btn-success">Confirm Booking</button>
                   </form>
                 </div>
               </div>
