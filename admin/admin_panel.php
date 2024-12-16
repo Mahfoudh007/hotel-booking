@@ -34,25 +34,32 @@ $bookingsResult = $conn->query($bookingsQuery);
             background-color: #f4f4f4;
             font-family: Arial, sans-serif;
         }
+
         .container {
             margin-top: 20px;
         }
+
         .card {
             margin-bottom: 20px;
         }
+
         .card-header {
             background-color: #007bff;
             color: white;
         }
+
         .btn-primary {
             background-color: #007bff;
             border: none;
         }
+
         .btn-danger {
             background-color: #dc3545;
             border: none;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             vertical-align: middle;
         }
     </style>
@@ -112,7 +119,15 @@ $bookingsResult = $conn->query($bookingsQuery);
                                 <td><?= $room['price'] ?></td>
                                 <td><?= $room['description'] ?></td>
                                 <td><?= $room['available'] ? 'Available' : 'Not Available' ?></td>
-                                <td><a href="delete_room.php?room_id=<?= $room['room_id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a></td>
+                                <td>
+                                    <a href="edit_room.php?room_id=<?= $room['room_id']; ?>" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="delete_room.php?room_id=<?= $room['room_id']; ?>" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+
                             </tr>
                         <?php } ?>
                     </tbody>
