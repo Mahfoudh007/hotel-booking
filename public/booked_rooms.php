@@ -1,13 +1,13 @@
 <?php
 include '../includes/header.php';
 
-// تأكد من تسجيل دخول المستخدم
+// Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
-// جلب الحجوزات الخاصة بالمستخدم
+// Fetch the user's bookings
 $user_id = $_SESSION['user_id'];
 $query = "SELECT b.booking_id, b.status,r.room_id,r.img, r.description, r.price, b.check_in_date, b.check_out_date 
           FROM booking b
@@ -19,8 +19,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 ?>
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Your Booked Rooms</h2>
+<div class="container" style="margin-top: 100px;">
+    <h2 class="text-center mb-5">Your Booked Rooms</h2>
     <?php if ($result->num_rows > 0): ?>
         <div class="row">
             <?php while ($booking = $result->fetch_assoc()): ?>
